@@ -21,7 +21,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getInstance(completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 self.storage = AGCStorage.getInstance()
             }
         } catch {
@@ -40,7 +40,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getInstanceForBucketName(_ bucketName: String, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 self.storage = AGCStorage.getInstanceForBucketName(bucketName)
             }
         } catch {
@@ -52,7 +52,7 @@ public class AGConnectStorageViewModel: NSObject {
         guard let storage = storage else { self.delegate?.postError(error: agcStorageNullError, result: completion)
             return }
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 let reference = storage.reference(from: URL(string: url)!)
                 self.delegate?.postData(data: reference.path, result: completion)
             }
@@ -63,7 +63,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func setRetryTimes(retryTimes: NSInteger, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 storage.retryTimes = retryTimes
@@ -76,7 +76,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getRetryTimes(completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 self.delegate?.postData(data: Int(storage.retryTimes), result: completion)
@@ -88,7 +88,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func setMaxRequestTimeout(maxRequestTimeout: NSInteger, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 
@@ -102,7 +102,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getMaxRequestTimeout(completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 self.delegate?.postData(data: (Int(storage.maxRequestTimeout)) * 1000, result: completion)
@@ -114,7 +114,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func setMaxUploadTimeout(maxUploadTimeout: NSInteger, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 storage.maxUploadTimeout = TimeInterval(maxUploadTimeout)
@@ -126,7 +126,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getMaxUploadTimeout(completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 self.delegate?.postData(data: (Int(storage.maxUploadTimeout)) * 1000, result: completion)
@@ -138,7 +138,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func setMaxDownloadTimeout(maxDownloadTimeout: NSInteger, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 storage.maxDownloadTimeout = TimeInterval(maxDownloadTimeout)
@@ -151,7 +151,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getMaxDownloadTimeout(completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 self.delegate?.postData(data: (Int(storage.maxDownloadTimeout)) * 1000, result: completion)
@@ -163,7 +163,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getMetadata(arguments: Dictionary<String, Any>, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -182,7 +182,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func updateMetadata(arguments: Dictionary<String, Any> , completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -202,7 +202,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func deleteFile(arguments: Dictionary<String, Any>, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -219,7 +219,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func uploadFile(arguments: Dictionary<String, Any>, flutterTask: AGCStorageTaskFlutter, handler: AGCStorageTaskEventHandler, taskID: String, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -259,7 +259,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func uploadData(arguments: Dictionary<String, Any>, flutterTask: AGCStorageTaskFlutter, handler: AGCStorageTaskEventHandler, taskID: String, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -304,7 +304,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func downloadFile(arguments: Dictionary<String, Any>, flutterTask: AGCStorageTaskFlutter, handler: AGCStorageTaskEventHandler, taskID: String, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -325,7 +325,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func downloadData(arguments: Dictionary<String, Any>, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -347,7 +347,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func getDownloadUrl(arguments: Dictionary<String, Any> , completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -363,7 +363,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func list(arguments: Dictionary<String, Any>, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -404,7 +404,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func listAll(arguments: Dictionary<String, Any> , completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -428,7 +428,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func activeUploadTasks(arguments: Dictionary<String, Any> , flutterTask: AGCStorageTaskFlutter, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)
@@ -449,7 +449,7 @@ public class AGConnectStorageViewModel: NSObject {
     
     func activeDownloadTasks(arguments: Dictionary<String, Any> , flutterTask: AGCStorageTaskFlutter, completion: @escaping FlutterResult) {
         do {
-            try ObjC.catchException{
+            try StorageObjC.catchException{
                 guard let storage = self.storage else { self.delegate?.postError(error: self.agcStorageNullError, result: completion)
                     return}
                 let reference = FlutterStorageUtils.getReference(arguments: arguments, storage: storage)

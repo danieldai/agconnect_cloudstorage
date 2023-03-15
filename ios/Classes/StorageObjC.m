@@ -1,8 +1,8 @@
 // Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
 
-#import "ObjC.h"
+#import "StorageObjC.h"
 
-@implementation ObjC 
+@implementation StorageObjC
 
 + (BOOL)catchException:(void(^)(void))tryBlock error:(__autoreleasing NSError **)error {
     @try {
