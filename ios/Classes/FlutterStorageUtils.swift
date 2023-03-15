@@ -117,10 +117,7 @@ class FlutterStorageUtils {
         return map;
     }
     
-    static func getReference(arguments: Dictionary<String, Any>, storage: AGCStorage) -> AGCStorageReference {
-
-
-​        
+    static func getReference(arguments: Dictionary<String, Any>, storage: AGCStorage) -> AGCStorageReference { 
         guard let path = arguments["objectPath"] as? String else { return storage.reference()  }
         return storage.reference(withPath: path)
         
